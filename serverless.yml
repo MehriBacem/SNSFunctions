@@ -1,0 +1,23 @@
+service: SNS-functions
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "SNS:Publish"
+      Resource: "<arn SNSTopic>"
+
+functions:
+  FirstLambdaFunction:
+    handler: handler.FirstLambdaFunction
+    events:
+      - http:
+          path: FirstLambdaFunction
+          method: get
+  SecondLambdaFunction:
+    handler: handler.SecondLambdaFunction
+    events:
+      - sns: <arn SNSTopic>
